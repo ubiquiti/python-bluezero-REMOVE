@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+
+override_dh_auto_build:
+	python2.7 setup.py build --force
+
+override_dh_auto_install:
+	python2.7 setup.py install --force --root=$(CURDIR)/debian/python-bluezero --no-compile -O0 --install-layout=deb
+	mkdir -p $(CURDIR)/debian/python-bluezero/etc/dbus-1/system.d
+	install -m 644 $(CURDIR)/examples/ukBaz.bluezero.conf $(CURDIR)/debian/python-bluezero/etc/dbus-1/system.d
+
+override_dh_auto_clean:
+	unset CC; python2.7 setup.py clean -a
+
+%:
+	dh  $@

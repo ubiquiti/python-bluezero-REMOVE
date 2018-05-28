@@ -1,0 +1,11 @@
+Source: python-bluezero
+Section: contrib/net
+Priority: extra
+Maintainer: UBNT Package Maintainers <maintainers@ubnt.com>
+Build-Depends: debhelper (>= 5), python2.7
+Standards-Version: 3.7.2
+
+Package: python-bluezero
+Architecture: all
+Depends: aioblescan
+Description: Provides API access to BlueZ 
