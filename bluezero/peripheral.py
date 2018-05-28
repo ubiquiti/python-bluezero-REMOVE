@@ -566,10 +566,9 @@ class Characteristic(dbus.service.Object):
         # print('Writing Characteristic', value)
         # if not self.writable:
         #     raise NotPermittedException()
-        self.value = int.from_bytes(value, byteorder='little', signed=False)
         if self.write_cb is not None:
             # print('Write callback')
-            self.write_cb()
+            self.write_cb(value)
 
     def add_write_event(self, object_id):
         """Add a write callback.
@@ -645,10 +644,10 @@ class Characteristic(dbus.service.Object):
         if not self.notifying:
             print('Not notifying')
             return
-        # print('Update prop')
+        #print('Update prop')
         self.PropertiesChanged(
             constants.GATT_CHRC_IFACE,
-            {'Value': [dbus.Byte(self.value)]}, [])
+            {'Value': dbus.Array([dbus.Byte(x) for x in self.value])}, [])
 
 ####################
 # Descriptor Classes
